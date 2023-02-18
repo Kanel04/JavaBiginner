@@ -2,32 +2,37 @@ import java.util.Scanner;
 
 public class Ex2 {
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        final int GAS_PRICE = 3370;
-        final int DIESEL_PRICE = 2600;
-        final int PETROL_CAR_RENT = 50000;
-        final int DIESEL_CAR_RENT = 60000;
-        final int PETROL_CAR_MILEAGE_COST = 250;
-        final int DIESEL_CAR_MILEAGE_COST = 200;
-        final double PETROL_CAR_FUEL_CONSUMPTION = 8.0;
-        final double DIESEL_CAR_FUEL_CONSUMPTION = 7.0;
+        double distance = 0;  // distance à parcourir en km
+        double essence = 3370;  // coût du litre d'essence
+        double gasoil = 2600;  // coût du litre de gasoil
 
-        System.out.print("Enter the number of kilometers to be traveled: ");
-        int kilometers = scan.nextInt();
+        // Coûts de la voiture essence
+        double locationEssence = 50000;  // coût de la location par jour
+        double consoEssence = 8;  // consommation en litres aux 100 km
+        double prixEssence = essence * consoEssence / 100;  // coût en essence pour 100 km
 
-        double petrolCarCost = PETROL_CAR_RENT + (PETROL_CAR_MILEAGE_COST * kilometers) + 
-                              ((PETROL_CAR_FUEL_CONSUMPTION / 100) * kilometers * GAS_PRICE);
+        // Demander à l'utilisateur la distance à parcourir
+        System.out.print("Entrez la distance à parcourir en km : ");
+        distance = sc.nextDouble();
 
-        double dieselCarCost = DIESEL_CAR_RENT + (DIESEL_CAR_MILEAGE_COST * kilometers) + 
-                               ((DIESEL_CAR_FUEL_CONSUMPTION / 100) * kilometers * DIESEL_PRICE);
+        // Calcul du coût de la voiture essence
+        double coutEssence = locationEssence + distance / 100 * prixEssence;
+        System.out.println("Le coût de la voiture essence est de " + coutEssence + " Ar");
 
-        if (petrolCarCost < dieselCarCost) {
-            System.out.println("The petrol car is the best option with a cost of " + petrolCarCost + " Ar");
+        // Calcul du coût de la voiture gasoil
+        double locationGasoil = 45000;  // coût de la location par jour
+        double consoGasoil = 5.5;  // consommation en litres aux 100 km
+        double prixGasoil = gasoil * consoGasoil / 100;  // coût en gasoil pour 100 km
+        double coutGasoil = locationGasoil + distance / 100 * prixGasoil;
+        System.out.println("Le coût de la voiture gasoil est de " + coutGasoil + " Ar");
+
+        // Affichage de la voiture la moins chère
+        if (coutEssence < coutGasoil) {
+            System.out.println("La voiture essence est la moins chère.");
         } else {
-            System.out.println("The diesel car is the best option with a cost of " + dieselCarCost + " Ar");
+            System.out.println("La voiture gasoil est la moins chère.");
         }
-
-        scan.close();
     }
 }
